@@ -1,4 +1,5 @@
-// Day2 - Primitive Data Types
+
+// Day2 - Primitive Data Types Breakout Task
 
 //Number
 var mobileNumber = 25;
