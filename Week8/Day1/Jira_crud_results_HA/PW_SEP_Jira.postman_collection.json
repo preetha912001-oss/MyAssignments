@@ -1,0 +1,267 @@
+{
+  "info": {
+    "_postman_id": "f95703fa-cfab-4165-9375-943659dc4712",
+    "name": "PW_SEP_Jira",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58951244",
+    "_collection_link": "https://go.postman.co/collection/58951244-f95703fa-cfab-4165-9375-943659dc4712?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Create Task in Jira",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "console.clear()\r\npm.test(\"Status code is 201\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\nlet responseBody = pm.response.json()\r\nconsole.log(responseBody)\r\nlet issue_key = responseBody.key\r\nconsole.log(issue_key)\r\npm.environment.set(\"task_key\",issue_key)"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "username",
+              "value": "{{jira_email}}",
+              "type": "string"
+            },
+            {
+              "key": "password",
+              "value": "{{jira_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"fields\": {\r\n    \"project\": {\r\n        \"key\": \"PJ\"\r\n    },\r\n    \"summary\": \"Task created through Postman\",\r\n    \"description\": \"Page is not loaded\",\r\n    \"issuetype\": {\r\n      \"name\": \"Task\"\r\n    }\r\n}\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://preetha912001.atlassian.net/rest/api/2/issue",
+          "protocol": "https",
+          "host": [
+            "preetha912001",
+            "atlassian",
+            "net"
+          ],
+          "path": [
+            "rest",
+            "api",
+            "2",
+            "issue"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Task",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "username",
+              "value": "{{jira_email}}",
+              "type": "string"
+            },
+            {
+              "key": "password",
+              "value": "{{jira_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://preetha912001.atlassian.net/rest/api/2/issue/{{task_key}}",
+          "protocol": "https",
+          "host": [
+            "preetha912001",
+            "atlassian",
+            "net"
+          ],
+          "path": [
+            "rest",
+            "api",
+            "2",
+            "issue",
+            "{{task_key}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Task",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 204\", function () {\r\n    pm.response.to.have.status(204);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "username",
+              "value": "{{jira_email}}",
+              "type": "string"
+            },
+            {
+              "key": "password",
+              "value": "{{jira_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"fields\": {\r\n    \"summary\": \"Task created through Postman\",\r\n    \"description\": \"Updated description: verify page loading and report the result\"\r\n    }\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://preetha912001.atlassian.net/rest/api/2/issue/{{task_key}}",
+          "protocol": "https",
+          "host": [
+            "preetha912001",
+            "atlassian",
+            "net"
+          ],
+          "path": [
+            "rest",
+            "api",
+            "2",
+            "issue",
+            "{{task_key}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Task",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 204\", function () {\r\n    pm.response.to.have.status(204);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "username",
+              "value": "{{jira_email}}",
+              "type": "string"
+            },
+            {
+              "key": "password",
+              "value": "{{jira_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://preetha912001.atlassian.net/rest/api/2/issue/{{task_key}}",
+          "protocol": "https",
+          "host": [
+            "preetha912001",
+            "atlassian",
+            "net"
+          ],
+          "path": [
+            "rest",
+            "api",
+            "2",
+            "issue",
+            "{{task_key}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "jira_email",
+      "value": ""
+    },
+    {
+      "key": "jira_token",
+      "value": ""
+    }
+  ]
+}
